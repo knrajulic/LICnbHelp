@@ -1,0 +1,1048 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+function clear_all() {
+var a = 22;
+console.log(a);
+document.getElementById("ei").innerHTML="";
+document.getElementById("Mflag").innerHTML="";
+document.getElementById("Mreq1").innerHTML="";
+document.getElementById("Mreq2").innerHTML="";
+document.getElementById("Mreq3").innerHTML="";
+document.getElementById("Mreq4").innerHTML="";
+document.getElementById("Mrep").innerHTML="	";
+document.getElementById("asa").innerHTML="	";
+document.getElementById("maxE").innerHTML="	";
+
+//debugger;
+
+document.getElementById('sumA').value="";
+document.getElementById('age').value="";
+//document.getElementById('gender').value="";
+
+   var ele = document.getElementsByName("gender");
+   for(var i=0;i<ele.length;i++)
+      ele[i].checked = false;
+	var fo = document.getElementsByName("Fothers");
+   for(var i=0;i<ele.length;i++)
+      fo[i].checked = false;
+	    var o = document.getElementsByName("others");
+   for(var i=0;i<ele.length;i++)
+      o[i].checked = false;
+   var m = document.getElementsByName("major");
+   for(var i=0;i<ele.length;i++)
+      m[i].checked = false;
+	    var fm = document.getElementsByName("Fmajor");
+   for(var i=0;i<ele.length;i++)
+      fm[i].checked = false;
+}
+
+function res()
+{
+
+	var gender,major,oth,EI,mreq1,mreq2,mreq3,mreq4,mrep,mflag;//category;
+	var sumAssured = Number(document.getElementById('sumA').value);
+	var age = Number(document.getElementById('age').value);
+	var g = document.getElementsByName('gender');	
+	var p = document.getElementById("plans");
+    var plan = p.options[p.selectedIndex].value;
+	//console.log(plan);
+	
+	for(var i = 0; i<=g.length; i++)
+	{
+		if(g[i].checked)
+		{
+			gender = g[i].value;
+			break;
+		}
+	}
+	if(plan == 915 || plan == 920 || plan == 921 || plan == 934 || plan == 947 || plan == 948)
+	{
+		sumAssured =sumAssured*1.25;
+	}
+	
+	if(age >= 18&& age <= 100)
+	{
+	if(gender == 'female')
+	{
+	var category = document.getElementsByName('Fmajor');
+	for(var j = 0; j<=category.length; j++)
+	{
+		if(category[j].checked)
+		{
+			major = category[j].value;
+			break;
+		}
+	}
+	//console.log(major);
+	if(major == 'others')
+	{
+	var others = document.getElementsByName('Fothers');
+	for(var j = 0; j<=others.length; j++)
+	{
+		if(others[j].checked)
+		{
+			oth= others[j].value;
+			break;
+		}
+	}
+	}
+	}
+	if(gender == 'male')
+	{
+	var category = document.getElementsByName('major');
+	for(var k = 0; k<=category.length; k++)
+	{
+		if(category[k].checked)
+		{
+			major = category[k].value;
+			break;
+		}
+	}
+	
+	if(major == 'others')
+	{
+	var others = document.getElementsByName('others');
+	for(var j = 0; j<=others.length; j++)
+	{
+		if(others[j].checked)
+		{
+			oth= others[j].value;
+			break;
+		}
+	}
+	}
+	}
+	}
+	
+	if(age<18 && gender =='male' )							/*minor section male*/
+	{
+		if(age<=9 && sumAssured <= 4000000)			/*medical flag*/
+		{
+			mflag = "Non Medical";
+		}
+		else if(age>=10 && sumAssured <= 1500000)
+		{
+			mflag = "Non Medical";
+		}
+		else
+		{
+			mflag = "Medical report required";
+			
+		}
+		
+		if(sumAssured <= 1000000)						/*EI*/
+		{
+		EI = "Parents insurance not required";
+		}
+		else if(sumAssured > 1000000 && sumAssured <=2500000)
+		{
+		EI ="Parents insurance not required if PWB opts";
+		}
+		else 
+		{
+			EI = "Equal parents insurance required";
+		}
+		
+		if(sumAssured <= 1500000 && age <= 4)								/*minor requirements*/
+		{
+			mreq1 ="Photograph";
+		}
+		else if(sumAssured > 1500000 && sumAssured <= 4000000 && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+		}
+		else if(sumAssured > 4000000  && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+			mreq3 = "Juvinile medical";
+		}
+		else if(sumAssured <= 1500000  && age >= 5 && age <=17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Height , Weight";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Immunization record";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age >= 5 && age <= 9)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Height , Weight";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age >= 10 && age <= 17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age <= 4 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+			mreq3 = "Juvinile medical";
+		
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age >= 5 && age <= 9 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age >= 10 && age <= 17 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		}
+		else if (sumAssured > 7500000  && age >= 5 && age <= 9)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+			mreq4 = "Haemogram, RUA, S.Creatinine,Elisa for HIV, Hbs Ag";
+		}
+		else if (sumAssured > 7500000  && age >= 10 && age <= 17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+			mreq4 = "Haemogram, SBT-13, RUA";
+		}
+		
+	}
+	else 
+	{
+	if (major == 'student')
+	{
+		EI = "Upto 25 lakhs parents matching Insurance not required";
+		mreq1 = " Last completed course certificate && New admission letter";
+		mreq2 = "If bank loan availed, matching insurance should not be insisted";
+		if(sumAssured <= 2000000)
+		{
+			mflag = "Non Medical";
+		}
+		else
+		{
+			mflag = "Medical report required";
+		}
+		if(sumAssured > 2500000)
+		{
+			mreq3 = "Parents matching Insurance details must";
+		}
+		if(sumAssured >2000000 && sumAssured<=3000000)
+		{
+			mrep = "Lipidogram,RUA,HIV,Hb%";													//medical report = mrep
+		}
+		else if(sumAssured >3000000 && sumAssured<=5000000)
+		{
+			mrep = "ECG,SBT-13,RUA,Hb%";													
+		}
+		else if(sumAssured >5000000 && sumAssured<=10000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA";													
+		}
+		else if(sumAssured >100000000 && sumAssured<=250000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA,HBA1C";													
+		}
+		else if(sumAssured >250000000 && sumAssured<4000000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA,HBA1C,CTMT";													
+		}
+		
+	}
+	
+	else
+	{
+		if(oth == 'b1')
+		{
+			mflag = answer2(sumAssured,age);
+			mreq1 = "salary slip should contain PF recovery ";
+		}
+		else if(oth == 'b2')
+		{
+			mflag = answer3(sumAssured,age);
+			mreq1 = "Proof of Qualification should be submitted ";
+			mreq2 = "Latest ITRs income should be min 2,50,000";
+		}
+		else if(oth == 'b3')
+		{
+			mflag = answer3(sumAssured,age);
+		}
+		else if(oth == 'b4')
+		{
+			mflag = answer2(sumAssured,age);
+			mreq1 = "Non-Medical limits applicable only when he visits India ";		
+			mreq2 = "If he is in foreign country - mail order bussiness allowed with medicals ";
+		}
+		else if(oth == 'b5')
+		{
+			mflag = answer1(sumAssured,age);
+		}
+	}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	if(age<18 && gender =='female' )							/*minor section female*/
+	{
+		if(age<=9 && sumAssured <= 4000000)			/*medical flag*/
+		{
+			mflag = "Non Medical";
+		}
+		else if(age>=10 && sumAssured <= 1500000)
+		{
+			mflag = "Non Medical";
+		}
+		else
+		{
+			mflag = "Medical report required";
+			
+		}
+		
+		if(sumAssured <= 1000000)						/*EI*/
+		{
+		EI = "Parents insurance not required";
+		}
+		else if(sumAssured > 1000000 && sumAssured <=2500000)
+		{
+		EI ="Parents insurance not required if PWB opts";
+		}
+		else 
+		{
+			EI = "Equal parents insurance required";
+		}
+		
+		if(sumAssured <= 1500000 && age <= 4)								/*minor requirements*/
+		{
+			mreq1 ="Photograph";
+		}
+		else if(sumAssured > 1500000 && sumAssured <= 4000000 && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+		}
+		else if(sumAssured > 4000000  && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+			mreq3 = "Juvinile medical";
+		}
+		else if(sumAssured <= 1500000  && age >= 5 && age <=17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Height , Weight";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age <= 4)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Immunization record";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age >= 5 && age <= 9)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Height , Weight";
+		}
+		else if(sumAssured > 1500000  && sumAssured <= 4000000 && age >= 10 && age <= 17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age <= 4 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Immunization record";
+			mreq3 = "Juvinile medical";
+		
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age >= 5 && age <= 9 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		
+		}
+		else if (sumAssured > 4000000  && sumAssured <= 7500000 && age >= 10 && age <= 17 )
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+		}
+		else if (sumAssured > 7500000  && age >= 5 && age <= 9)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+			mreq4 = "Haemogram, RUA, S.Creatinine,Elisa for HIV, Hbs Ag";
+		}
+		else if (sumAssured > 7500000  && age >= 10 && age <= 17)
+		{
+			mreq1 = "Photograph ";
+			mreq2 = "Latest School going proof";
+			mreq3 = "Juvinile medical";
+			mreq4 = "Haemogram, SBT-13, RUA";
+		}
+		
+		
+	}
+	else 
+	{
+	if (major == 'student')
+	{
+		EI = "Upto 25 lakhs parents matching Insurance not required";
+		mreq1 = " Last completed course certificate && New admission letter";
+		mreq2 = "If bank loan availed, matching insurance should not be insisted";
+		if(sumAssured <= 2000000)
+		{
+			mflag = "Non Medical";
+		}
+		else
+		{
+			mflag = "Medical report required";
+		}
+		if(sumAssured > 2500000)
+		{
+			mreq3 = "Parents matching Insurance details must";
+		}
+		if(sumAssured >2000000 && sumAssured<=3000000)
+		{
+			mrep = "Lipidogram,RUA,HIV,Hb%";													//medical report = mrep
+		}
+		else if(sumAssured >3000000 && sumAssured<=5000000)
+		{
+			mrep = "ECG,SBT-13,RUA,Hb%";													
+		}
+		else if(sumAssured >5000000 && sumAssured<=10000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA";													
+		}
+		else if(sumAssured >100000000 && sumAssured<=250000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA,HBA1C";													
+		}
+		else if(sumAssured >250000000 && sumAssured<4000000000)
+		{
+			mrep = "ECG,Heamogram,SBT-13,RUA,HBA1C,CTMT";													
+		}
+		
+	}
+	else if(major =='pregnant')														//pregnant
+	{
+		mflag = "Medical Compulsory";
+		mreq1 = "Eligible within 6 months of pregnancy";
+		mreq2 = "Gynecologist report in F.no : 3341 && latest checkup reports";
+		mreq3 = "Employees/who are filing ITRs only are eligible";
+	}
+	else  														//female others   oth
+	{
+		if(oth == 'a0')
+		{
+			mflag = answer3(sumAssured,age);
+			mreq1 = "Proof of Qualification should be submitted ";
+			mreq2 = "Latest ITRs income should be min 2,50,000";
+		}
+		else if(oth == 'a1')
+		{
+			mflag = answer3(sumAssured,age);
+		}
+		else if(oth == 'a2')
+		{
+			mflag = answer1(sumAssured,age);
+		}
+		else if(oth == 'a3')
+		{
+			mflag = answer2(sumAssured,age);
+		}
+		else if(oth =='a5')
+		{
+			mreq1 = "If Qualification is 12th && above - max 15 lakhs Insurance eligible";
+			mreq2 = "If Qualification is below 12th - max 10 lakhs Insurance eligible";
+			mflag = answer1(sumAssured,age);
+		}
+		else if(oth =='a4')
+		{
+			mreq1 = "Min qualification is 10th - Max 50 lakhs Insurance eligible ";
+			mreq2 = "Without insisting min qualification 1 crore single premium allowed ";
+			mflag = answer1(sumAssured,age);
+		}
+		else if(oth =='a6')
+		{
+			mreq1 = "Maximum 1 crore allowed (or) upto husb&&'s matching insurance";	
+			mflag = answer1(sumAssured,age);
+		}
+		else if(oth =='a7')
+		{
+			mreq1 = "Maximum 60 Lakhs allowed (or) upto husb&&'s matching insurance";	
+			mflag = answer1(sumAssured,age);		
+		}
+		else if(oth =='a8')
+		{
+			mreq1 = "Non-Medical limits applicable only when she visits India ";		
+			mreq2 = "If she is in foreign country - mail order bussiness allowed with medicals ";
+			mflag = answer2(sumAssured,age);	
+		}
+	}
+	}
+	
+	/*console.log(EI);
+	console.log(mflag);
+	console.log(mreq1);
+	console.log(mreq2);
+	console.log(mreq3);
+	console.log(major);*/
+	
+	/*var xx = document.getElementById('ei');	
+	var mf = document.getElementById('mflag');	
+	var r1 = document.getElementById('mreq1');	
+	var r2 = document.getElementById('mreq2');	
+	var r3 = document.getElementById('mreq3');	
+	var r4 = document.getElementById('mreq4');	
+	var report = document.getElementById('mrep');	
+	*/
+	
+														//max eligible insurance
+	
+var max1;	
+if(major != "student")
+{
+ if(age >=18 && age<=35)
+{
+	max1 = "(25 times of annual income if income < 10 laks) "+"<br>"+" (30 times of annual income if income >= 10 laks)";
+}
+else if(age>=36 && age<= 45)
+{
+	max1 = "(20 times of annual income if income < 10 laks) "+"<br>"+" (25 times of annual income if income >= 10 laks)";
+}
+else if(age>=46 && age<= 50)
+{
+	max1 = "(15 times of annual income if income < 10 laks) "+"<br>"+" (20 times of annual income if income>= 10 laks)";
+} 
+else if(age>=51 && age<= 55)
+{
+	max1 = "(15 times of annual income if income < 10 laks) "+"<br>"+" (15 times of annual income if income >= 10 laks)";
+}
+else if(age>=56)
+{
+	max1 = "(10 times of annual income if income < 10 laks) "+"<br>"+" (10 times of annual income if income>= 10 laks)";
+}
+}
+//console.log(max1);
+if(max1) {document.getElementById('maxE').innerHTML= " Maximum Eligible Insurance : "+"<br>"+max1 };
+
+
+console.log(major);
+ if(EI) { document.getElementById('ei').innerHTML= " "+EI; }
+ if(mflag){ document.getElementById('Mflag').innerHTML= " "+mflag; }
+ if(mreq1){ document.getElementById('Mreq1').innerHTML= " "+mreq1 ; }
+ if(mreq2){ document.getElementById('Mreq2').innerHTML= " "+mreq2;}  
+ if(mreq3){ document.getElementById('Mreq3').innerHTML= " "+mreq3; }
+ if(mreq4){ document.getElementById('Mreq4').innerHTML= " "+mreq4; }
+ if(mrep){ document.getElementById('Mrep').innerHTML= " "+mrep;}
+ if(sumAssured){ document.getElementById('asa').innerHTML= " Actual SumAssured : "+sumAssured;}
+ console.log(mflag);
+
+}
+
+function answer1(sumAssured,age)
+{
+	var mflag;
+	if(age >= 18 && age <= 35 && sumAssured <= 800000)									//18 to 35 age
+			{
+				mflag = "Non-medical";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 800000 && sumAssured <= 1500000)
+			{
+				mflag = "Medical report required";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 1500000 && sumAssured <= 3000000)
+			{
+				mflag = "Lipidogram, RUA, elisa for HIV, HB%";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 3000000 && sumAssured <= 5000000)
+			{
+				mflag = "ECG, SBT-13,RUA,HB%";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 5000000 && sumAssured <= 10000000)
+			{
+				mflag = "ECG, Heamogram, SBT-13, RUA";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 10000000 && sumAssured <= 250000000)
+			{
+				mflag = "ECG,Heamogram, SBT-13 ,RUA ,HBA1C";
+			}
+			else if(age >= 18 && age <= 35 && sumAssured > 250000000 && sumAssured < 400000000)
+			{
+				mflag = "ECG,Heamogram, SBT-13 ,RUA ,HBA1C,CTMT";
+			}
+			if(age >= 36 && age <= 45 && sumAssured <= 500000)											//36 to 45age
+			{
+				mflag = "Non-medical";
+			}
+			else if(age >= 36 && age <= 45 && sumAssured > 500000 && sumAssured <= 1500000)
+			{
+				mflag = "Medical report required";
+			}
+			else if(age >= 36 && age <= 45 && sumAssured > 1500000 && sumAssured <= 3000000)
+			{
+				mflag = "SBT-13, RUA, HB%";
+			}
+			else if(age >= 36 && age <= 45 && sumAssured > 3000000 && sumAssured <= 5000000)
+			{
+				mflag = "ECG, HBT-13, RUA, HB%,HBA1C";
+			}
+			else if(age >= 36 && age <= 45 && sumAssured > 5000000 && sumAssured < 400000000)
+			{
+				mflag = "ECG, Heamogram, SBT-13, RUA, HBA1C,CTMT";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured <= 300000 )								// 46 to 50 age
+			{
+				mflag = "Non-Medical ";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured > 300000 && sumAssured <= 500000)								
+			{
+				mflag = "Medical report required ";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured > 500000 && sumAssured <= 800000)								
+			{
+				mflag = "FBS, RUA ";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured > 800000 && sumAssured <= 3000000)								
+			{
+				mflag = "ECG,SBT-13, RUA, HB% ";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured > 3000000 && sumAssured <= 5000000)								
+			{
+				mflag = "ECG,SBT-13, RUA, HB%, HBA1C, CTMT ";
+			}
+			else if(age >= 46 && age <= 50 && sumAssured > 5000000 && sumAssured < 400000000)								
+			{
+				mflag = "ECG,Heamogram, SBT-13, RUA, HBA1C, CTMT ";
+			}
+			
+			if(age >=51 && age <= 55 && sumAssured <= 200000)													// 51 to 55 age
+			{
+			mflag = "Medical report required";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 200000 && sumAssured <= 300000)					
+			{
+			mflag = "FBS,RUA";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 300000 && sumAssured <= 500000)					
+			{
+			mflag = "ECG,FBS,RUA";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 500000 && sumAssured <= 800000)					
+			{
+			mflag = "ECG,FBS,Lipidogram,RUA,HB%";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 800000 && sumAssured <= 1500000)					
+			{
+			mflag = "ECG,SBT-13,RUA,HB%";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 1500000 && sumAssured <= 3000000)					
+			{
+			mflag = "ECG,Haemogram,SBT-13,RUA";
+			}
+			else if(age >=51 && age <= 55 && sumAssured > 3000000 && sumAssured < 400000000)					
+			{
+			mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C,CTMT";
+			}
+			if(age >=56 && sumAssured <= 200000)					
+			{
+			mflag = "ECG,FBS";
+			}
+			else if(age >=56 && sumAssured > 200000 && sumAssured <= 800000)					
+			{
+			mflag = "ECG,FBS,Lipidogram,RUA,HB%";
+			}
+			else if(age >=56 && sumAssured > 800000 && sumAssured <= 1500000)										
+			{
+			mflag = "ECG,SBT-13,RUA,HB%";
+			}
+			else if(age >=56 && sumAssured > 1500000 && sumAssured <= 3000000)										
+			{
+			mflag = "ECG,Heamogram,SBT-13,RUA,HBA1C";
+			}
+			else if(age >=56 && sumAssured > 3000000 && sumAssured <= 10000000)										
+			{
+			mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C,CTMT";
+			}
+			else if(age >=56 && sumAssured > 10000000 && sumAssured < 400000000)										
+			{
+			mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C,CTMT,chest x-ray";
+			}
+			console.log(mflag);
+			return mflag;
+			
+}
+
+function answer2(sumAssured,age)					// chart for NMS 
+{
+var mflag;
+	if(age>=18 &&  age <=35 && sumAssured <= 3000000)
+	{
+	mflag = "Non-medical";
+	}
+	else if(age>=18 &&  age <=35 && sumAssured > 3000000 && sumAssured <= 5000000)
+	{
+	mflag = "Medical report required";
+	}
+	if(age >= 36 && age <= 45 && sumAssured <= 2000000 )
+	{
+	mflag = "Non-medical";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 2000000 && sumAssured <= 2500000 )
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 2500000 && sumAssured <= 3000000 )
+	{
+	mflag = "SBT-13,RUA";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 3000000 && sumAssured <= 5000000 )
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	if(age >= 46 && age <= 50 && sumAssured <= 1000000 )	   				//46 to 50
+	{
+	mflag = "Non-Medical";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 1000000 && sumAssured <= 2000000)	   				
+	{
+	mflag = "FBS,Lipidogram,RUA";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 2000000 && sumAssured <= 3000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 3000000 && sumAssured <= 5000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%,HBA1C,CTMT";
+	}
+	if(age >= 51 && age <= 55 && sumAssured <= 1000000)
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 51 && age <= 55 && sumAssured > 1000000 && sumAssured <= 2500000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 51 && age <= 55 && sumAssured > 2500000 && sumAssured <= 3000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,Heamogram";
+	}
+	else if(age >= 51 && age <= 60 && sumAssured > 3000000 && sumAssured <= 5000000)	   				
+	{
+	mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C,CTMT";
+	}
+	if(age >= 56 && age <= 60 && sumAssured <= 200000 )
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 200000 && sumAssured <= 1000000 )
+	{
+	mflag = "ECG,FBS,Lipidogram,RUA,HB%";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 1000000 && sumAssured <= 1500000 )
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 1500000 && sumAssured <= 3000000 )
+	{
+	mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C";
+	}
+	return mflag;
+}
+
+function answer3(sumAssured,age)					// chart for NMGP 
+{
+var mflag;
+	if(age>=18 &&  age <=35 && sumAssured <= 2500000)
+	{
+	mflag = "Non-Medical";
+	}
+	else if(age>=18 &&  age <=35 && sumAssured > 2500000 && sumAssured <= 5000000)
+	{
+	mflag = "Medical report required";
+	}
+	if(age >= 36 && age <= 45 && sumAssured <= 1500000 )
+	{
+	mflag = "Non-medical";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 1500000 && sumAssured <= 2500000 )
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 2500000 && sumAssured <= 3000000 )
+	{
+	mflag = "SBT-13,RUA";
+	}
+	else if(age >= 36 && age <= 45 && sumAssured > 3000000 && sumAssured <= 5000000 )
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	if(age >= 46 && age <= 50 && sumAssured <= 800000 )	   				//46 to 50
+	{
+	mflag = "Non-Medical";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 800000 && sumAssured <= 1000000)	   				
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 1000000 && sumAssured <= 2000000)	   				
+	{
+	mflag = "FBS,Lipidogram,RUA";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 2000000 && sumAssured <= 3000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 46 && age <= 50 && sumAssured > 3000000 && sumAssured <= 5000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%,HBA1C,CTMT";
+	}
+	if(age >= 51 && age <= 55 && sumAssured <= 1000000)
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 51 && age <= 55 && sumAssured > 1000000 && sumAssured <= 2500000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 51 && age <= 55 && sumAssured > 2500000 && sumAssured <= 3000000)	   				
+	{
+	mflag = "ECG,SBT-13,RUA,Heamogram";
+	}
+	else if(age >= 51 && age <= 60 && sumAssured > 3000000 && sumAssured <= 5000000)	   				
+	{
+	mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C,CTMT";
+	}
+	if(age >= 56 && age <= 60 && sumAssured <= 200000 )
+	{
+	mflag = "Medical report required";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 200000 && sumAssured <= 1000000 )
+	{
+	mflag = "ECG,FBS,Lipidogram,RUA,HB%";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 1000000 && sumAssured <= 1500000 )
+	{
+	mflag = "ECG,SBT-13,RUA,HB%";
+	}
+	else if(age >= 56 && age <= 60 && sumAssured > 1500000 && sumAssured <= 3000000 )
+	{
+	mflag = "ECG,Haemogram,SBT-13,RUA,HBA1C";
+	}
+	return mflag;
+}
+
+
+
+</script>
+<script>
+$(document).ready(function(){    /*female : student preg others */
+	$("#f").click(function(){
+	var n = $("#age").val();
+	if(n >= 18 )
+	{
+		$(".step3").show();
+		$(".step5").hide();
+		$(".step6").hide();
+		$(".step4").hide();
+	}
+	});
+
+
+	$("#m").click(function(){      /* male : student nri others*/
+	var n = $("#age").val();
+	
+	if( n >= 18)
+	{
+		$(".step5").show();
+		$(".step3").hide();
+		$(".step4").hide();
+		$(".step6").hide();
+        		
+	}
+	});
+
+	$("#f_others").click(function(){		/*female others*/
+		$(".step4").show();
+		
+		
+	});
+
+	$("#others").click(function(){				/*male others*/
+	$(".step6").show();
+	});
+
+	$("#c").click(function(){				
+	$(".step5").hide();
+	$(".step6").hide();
+	$(".step4").hide();
+    $(".step3").hide();	
+	});
+
+});
+
+
+
+</script>
+</head>
+<body>
+<div class = "center">
+<form id = "myform" class = "test">
+<h1 > Underwriting help</h1>
+<h5>9573839794 - KN Raju, BM, B & AC, Hyd</h5>
+<br><br>
+  Plans : <select id="plans" name="plans">
+      <option value="" disabled selected>Select your plan</option>
+    <option value="914">914-New Endowment</option>
+    <option value="915">915-Jeevan Anand</option>
+	<option value="916">916-Bheema bachat</option>
+    <option value="917">917-Single Premium Endowment</option>
+	<option value="920">920-Moneyback 20 year</option>
+	<option value="921">921-Moneyback 25 year</option>
+	<option value="932">932-Children Moneyback</option>
+    <option value="933">933-Jeevan Lakshya</option>
+	<option value="934">934-Jeevan Tarun</option>
+	<option value="936">936-Jeevan Labh</option>
+	<option value="943">943-Aadhar Stambh</option>
+	<option value="944">944-Aadhar Shila</option>
+	<option value="945">945-Jeevan Umang</option>
+	<option value="947">947-Jeevan Sheromani</option>
+	<option value="948">948-Bheema Shree</option>
+	<!--<option value="">----------------</option>
+	<option value="822">822-Anmol Jeevan</option>-->
+	<option value="855">855-Jeevan Amar</option>
+  </select><br><br>
+Sum Assured <input type = "number" name ="sumA" id = "sumA" required><br>
+<p id = "asa" style = "color:blue;"> </p>
+Age <input type="number" placeholder="0-66" id="age" name="age"
+       min="0" max="66">   Standard age proof only<br><br>
+
+
+<input type="radio"  name="gender" id = "m" value = "male" style = "display:inline" >Male
+<input type="radio"  name="gender" id = "f" value = "female" style = "display:inline">Female<br><br>
+
+<div style="display: none" class ="step3">
+<input type="radio"  name="Fmajor" value = "student" id = "f_student" >Major Student (age<=30)
+<input type="radio"  name="Fmajor" value = "pregnant" id = "pregnant" >Pregnant Women
+<input type="radio"  name="Fmajor" value = "others" id = "f_others" >Others
+</div>
+
+<div style="display: none" class ="step4"><br>
+<input type="radio"  name="Fothers" value = "a0" id = "a0" >A0 (Professionally Qualified persons (Engineers, Doctors,any post graduates etc))<br>
+<input type="radio"  name="Fothers" value = "a1" id = "a1" >A1 (Filing ITRs income >= 10 lakhs)<br>
+<input type="radio"  name="Fothers" value = "a2" id = "a2" >A2 (Filing ITRs income < 10 lakhs)<br>
+<input type="radio"  name="Fothers" value = "a3" id = "a3" >A3 (Employee with min 1 yr service )<br>
+<input type="radio"  name="Fothers" value = "a4" id = "a4" >A4 (Own income that can be established )<br>
+<input type="radio"  name="Fothers" value = "a5" id = "a5" >A5 (Own income that can not be established)<br>
+<input type="radio"  name="Fothers" value = "a6" id = "a6" >A6 (Housewife - graduate and above qualification)<br>
+<input type="radio"  name="Fothers" value = "a7" id = "a7" >A7 (Housewife - below graduate)<br>
+<input type="radio"  name="Fothers" value = "a8" id = "a8" >A8 (NRI - presently in India)<br>
+<br></div>
+
+<div style="display: none" class ="step5">
+<input type="radio"  name="major" value = "student" id = "student" >Major Student (age<=30)
+
+<input type="radio"  name="major" value = "others" id = "others" >Others
+</div><br>
+
+<div style="display: none" class ="step6">
+<input type="radio"  name="others" value = "b1" id = "b1" > Employee with min 1 yr service (govt or pvt reputed companies)<br>
+<input type="radio"  name="others" value = "b2" id = "b2" > Professionally Qualified persons (Engineers, Doctors,any post graduates etc)<br>
+<input type="radio"  name="others" value = "b3" id = "b3" > Avg 3 years ITRs above 10 lakhs <br>
+<input type="radio"  name="others" value = "b4" id = "b4" > NRI<br>
+<input type="radio"  name="others" value = "b5" id = "b5" > Others<br>
+<br></div>
+
+<input type = "button" value = "Submit"  name = "submit" onclick ="res()">
+<input type = "button" value = "Clear" id = "c" name = "submit" onclick ="clear_all()">
+<!--<a class ="button" href="http://vjitvoting.000webhostapp.com/LICnbHelp.html">Reset</a>
+<a class ="button" href="https://www.google.com/">Exit</a>-->
+
+<p id = "maxE" style = "color:red; font-weight : 900;">  </p>
+<p id = "ei" style = "color:red; font-weight : 900;">  </p>
+<p id = "Mflag" style = "color:blue; font-weight : bold;">  </p>
+<p id = "Mreq1" style = "color:blue; font-weight : bold;">  </p>
+<p id = "Mreq2" style = "color:blue; font-weight : bold;">  </p>
+<p id = "Mreq3" style = "color:blue; font-weight : bold;">  </p>
+<p id = "Mreq4" style = "color:blue; font-weight : bold;">  </p>
+<p id = "Mrep" style = "color:red; font-weight : bold;">  </p>
+
+
+</form>
+</div>
+<style>
+.button {
+  background-color:  #99e6ff;
+  font-family: "Times New Roman", Times, serif;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 3px 1px;
+  cursor: pointer;
+}
+
+input[type=button] {
+  background-color:  #99e6ff;
+  font-family: "Times New Roman", Times, serif;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 3px 1px;
+  cursor: pointer;
+}
+.center {
+  padding-left : 400px;
+}
+input[type="number"], number {
+
+  background-color : transparent; 
+
+}
+
+h5{
+color: blue;
+}
+h1 {
+color : brown;
+}
+
+</style>
+</body>
+</html>
+
+
+
+
